@@ -1,4 +1,4 @@
-{% load static %}
+{% load static%}
 <!DOCTYPE html>
 <html lang="es">
 
@@ -11,7 +11,7 @@
     <link rel="shortcut icon" href="{% static 'images/icono.png' %}" type="image/x-icon">
     <title>Play</title>
     <!-- css -->
-    <link rel="stylesheet" href="{% static 'styles/global.css'%}">
+    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- fonts -->
@@ -56,7 +56,7 @@
             <ul>
                 <a href="/index"><li>home.</li></a>
                 <a href="/perfil"><li>profile.</li></a>
-                <a><li id="state">play.</li></a>
+                <a href="/jugar"><li>play.</li></a>
             </ul>
         </div>
 
@@ -75,65 +75,32 @@
 
     <!-- img -->
     <div class="img">
-        <img src="{% static 'images/jugar.png'%}" alt="jugar">
+        <img src="{% static 'images/jugar.png' %}" alt="jugar">
     </div>
 
 
     <!-- juegos -->
     <div class="juegos">
         <div class="contenedorJuegos">
-
-            <div class="juego">
+            <center>
+                <p style="font-size:1.7rem">¿Con qué quieres jugar?</p><br>
+            </center>
+            <div class="juego modos">
                 <div class="boton">
-                    <a href="/NSelector"><button>Normal</button></a>
+                    <a href="/normal"><button>Con solo teclado</button></a>
                 </div>
-                <div class="descripcion">
-                    <p>300 letras y números al azar.<br>
-                        Recomendado para principiantes.<br>
-                        Validación de errores y posicionamiento correcto de las manos.</p>
-                    <br>
-                    <p>Best score: 0</p>
-                    <p>Best time: 0</p>
+                <div class="boton">
+                    <a href="/normal-cam"><button>Con teclado y cámara</button></a>
                 </div>
             </div>
-
-            <div class="juego">
-                <div class="boton">
-                    <a href="/WSelector"><button>Words</button></a>
-                </div>
-                <div class="descripcion">
-                    <p>Palabras al azar.<br>
-                        Palabras sin símbolos especiales o de puntuación.
-                    </p>
-                    <br>
-                    <p>Best score: 0</p>
-                    <p>Best time: 0</p>
-                </div>
-            </div>
-
-<!--             <div class="juego">
-                <div class="boton">
-                    <a href="./jugarLegendary.html"><button>Legendary</button></a>
-                </div>
-                <div class="descripcion">
-                    <p>Letras, símbolos y espacios.<br>
-                        Limite de tiempo. <br>
-                        Ideal para mejorar velocidad y presicion.</p>
-                    <br>
-                    <p>Best score: 0</p>
-                </div>
-            </div> -->
 
         </div>
     </div>
 
-
     <!-- texto -->
     <div class="texto">
-        <div class="title" id="textoH">game mode</div>
-        <p id="textoP">Sé que ya quieres jugar, pero antes <br>decidamos el modo de juego uwu</p>
+        <div class="title" id="textoH">game mode:<br>NORMAL</div>
     </div>
-
 
     <!-- ahoraBtn -->
     <div class="ahoraBtn">
@@ -165,7 +132,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
     <!-- <script src="./javaScript/efectosGlobal.js"></script> -->
     <script src="{% static 'javaScript/menu.js' %}"></script>
-    
     <script src="{% static 'javaScript/musica.js' %}"></script>
 
 

@@ -366,6 +366,10 @@ ul {
     height: auto;
     margin-bottom: 35px;
 }
+.juegos .contenedorJuegos .modos{
+      display: flex;
+  justify-content: center;
+}
 .juegos .contenedorJuegos .juego .boton {
     width: 30%;
     height: 100%;
@@ -458,6 +462,7 @@ ul {
     transform: translateY( -50% );
     background: #4D4D4D;
     padding: 30px 180px 30px 30px;
+    cursor: pointer;
 }
 .ahoraBtn #ahoraBtn {
     text-decoration: none;
@@ -607,4 +612,7 @@ ul {
 .circulo2 span {
     left: 80px;
     top: 10px;
+}
+.hist span{
+    color:  #E5383B;
 }

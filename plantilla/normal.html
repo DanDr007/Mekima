@@ -1,0 +1,41 @@
+{% load static %}
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Typing game</title>
+    <link rel="shortcut icon" href="{% static 'images/icono.png' %}" type="image/x-icon">
+    <title>Normal</title>
+    <!-- css -->
+	<link rel="stylesheet" href="{% static 'styles/juego.css' %}">
+    <!-- font-awesome -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <!-- fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap" rel="stylesheet">
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,700' rel='stylesheet' type='text/css'>
+
+</head>
+<body>
+	<div class="wrapper">
+		<h1>NORMAL</h1>
+		<p>¡Escribe todas las letras que puedas antes de que se acabe el tiempo!</p>
+		<button>EMPEZAR</button>
+		<div class="outerWrap">
+			<div class="scoreWrap">
+				<p>Puntuacion</p>
+				<span class="score">0</span>
+			</div>
+			<div class="timeWrap">
+				<p>Tiempo<br>restante</p>
+				<span class="time">60</span>
+			</div>
+		</div>
+		<div class="wordsWrap">
+			<p class="words"></p>
+		</div>
+	</div>
+    <script src="{% static 'javaScript/normal.js' %}"></script>
+</body>
+</html>
