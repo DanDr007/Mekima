@@ -34,4 +34,5 @@ urlpatterns = [
     path('registrarpuntajeW/<puntaje>', registrarPW),
     path('modificarCuenta/', modificarDatos),
     path('modificarDatos/', modificarCuenta),
+    path('cerrarSesion/', CerrarSesion),
 ]

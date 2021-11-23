@@ -6,7 +6,6 @@ import mysql.connector
 from mysql.connector import errorcode
 from mysql.connector import cursor
 from datetime import datetime
-from Crypto.Cipher import AES
 def cifrarmensaje(msj,key):
 	lm=msj.split(" ")
 	cmc=""
@@ -35,7 +34,7 @@ def cifrarpalabra(m,k):
 	
 
 def buscarpos(x):
-	alf="abcdefghijkmnñopqrstuvwxyz.@ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890"
+	alf="abcdefghijklmnñopqrstuvwxyz.@ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890"
 	c=0
 	for i in alf:
 		if x==i:
@@ -73,7 +72,7 @@ def descifrarnumero(m,k):
 	return cnc
 
 def buscarlet(x):
-	alf="abcdefghijkmnñopqrstuvwxyz.@ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890"
+	alf="abcdefghijklmnñopqrstuvwxyz.@ABCDEFGHIJKLMNÑOPQRSTUVWXYZ1234567890"
 	c=0
 	for i in alf:
 		if x==c:
@@ -142,7 +141,7 @@ def iniciarSesion(request):
     id_usu=""
     clas=""
     print(username, password)
-    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
+    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
     cursor = miconexion.cursor()
     q = "select * from usuarios where usu = '"+cifrado+"'"
     cursor.execute(q)
@@ -190,7 +189,7 @@ def crearCuentaN(request):
     cifradoA=str(cifrarmensaje(password,key_public))
     cifradoA=cifradoA[0:(len(cifradoA)-2)]
     print(username, password,email)
-    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
+    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
     cursor = miconexion.cursor()
     q = "INSERT INTO usuarios (usu,correo,contraseña,promedio) VALUES ('"+cifrado+"','"+cifradoE+"','"+cifradoA+"', '0')"
     cursor.execute(q)
@@ -238,7 +237,7 @@ def words(request):
     documento=plt.render(ctx)
     return HttpResponse(documento)
 def registrarPN(request,puntaje):
-    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
+    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
     cursor = miconexion.cursor()
     fecha=datetime.today().strftime('%Y-%m-%d %H:%M')
     q = "INSERT INTO puntaje (puntaje,mododejuego,fecha,id_usu) VALUES ('"+puntaje+"','NORMAL','"+str(fecha)+"','"+str(request.session.get('id_usu','0'))+"')"
@@ -247,7 +246,7 @@ def registrarPN(request,puntaje):
     miconexion.close()
     return redirect("/jugar", permanent=True)
 def registrarPW(request,puntaje):
-    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
+    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
     cursor = miconexion.cursor()
     fecha=datetime.today().strftime('%Y-%m-%d %H:%M')
     q = "INSERT INTO puntaje (puntaje,mododejuego,fecha,id_usu) VALUES ('"+puntaje+"','WORDS','"+str(fecha)+"','"+str(request.session.get('id_usu','0'))+"')"
@@ -284,15 +283,31 @@ def modificarCuenta(request):
     password=request.GET["password"]
     email=request.GET["email"]
     idu=request.session["id_usu"]
-    print("-------")
+    print("---2---")
     cifrado=str(cifrarmensaje(username,key_public))
+    cifrado=cifrado[0:(len(cifrado)-2)]
     cifradoE=str(cifrarmensaje(email,key_public))
+    cifradoE=cifradoE[0:(len(cifradoE)-2)]
     cifradoA=str(cifrarmensaje(password,key_public))
+    cifradoA=cifradoA[0:(len(cifradoA)-2)]
+    request.session['name']=cifrado
+    request.session['email']=cifradoE
+    request.session['passw']=cifradoA
     print(cifrado+"-", cifradoA,cifradoE)
-    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
+    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
     cursor = miconexion.cursor()
-    q = "UPDATE usuarios SET usu = '"+cifrado+"' , contraseña = '"+cifradoA+"' , email = '"+cifradoE+"'  WHERE id_usu = '"+idu+"';"
+    q = "UPDATE usuarios SET usu = '"+cifrado+"' , contraseña = '"+cifradoA+"' , correo = '"+cifradoE+"'  WHERE id_usu = '"+str(idu)+"';"
     cursor.execute(q)
     miconexion.commit()
     miconexion.close()
     return redirect("/perfil", permanent=True)
+def CerrarSesion(request):
+    print("cerrar sesion")
+    del request.session['id_usu']
+    del request.session['name']
+    del request.session['email']
+    del request.session['clas']
+    del request.session['passw']
+    request.session.modified = True
+    return redirect("/perfil", permanent=True)
+

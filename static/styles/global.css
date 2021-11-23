@@ -613,6 +613,46 @@ ul {
     left: 80px;
     top: 10px;
 }
-.hist span{
-    color:  #E5383B;
+.hitorial {
+    position: absolute;
+    height: auto;
+    width: 50%;
+    top: 20px;
+    left: 200px;
+    padding: 10px 0px;
+    display: flex;
+    flex-direction: column;
+}
+
+
+.hitorial p.alert {
+    font-family: 'Poppins', sans-serif;
+    color: #E5383B;
+    font-size: 12px;
+    padding: 10px 100px;
+}
+
+
+.hist {
+    padding: 10px 100px;
+    margin: 10px 0;
+    font-family: 'Poppins', sans-serif;
+}
+
+
+.hist h2 {
+    color: #4D4D4D;
+    font-size: 15px;
+    font-weight: 600;
+}
+
+
+.hist p {
+    color: #E1E1E1;
+    font-size: 12px;
+}
+
+
+.hist span {
+    color: #E5383B;
 }
