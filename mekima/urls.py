@@ -35,4 +35,5 @@ urlpatterns = [
     path('modificarCuenta/', modificarDatos),
     path('modificarDatos/', modificarCuenta),
     path('cerrarSesion/', CerrarSesion),
+    path('historial/', Historial),
 ]

@@ -129,6 +129,7 @@ def iniciarSesion(request):
     print("AAAAAA")
     username=""
     password=""
+
     username=request.GET["username"]
     password=request.GET["password"]
     cifrado=str(cifrarmensaje(username,key_public))
@@ -141,9 +142,9 @@ def iniciarSesion(request):
     id_usu=""
     clas=""
     print(username, password)
-    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
+    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
     cursor = miconexion.cursor()
-    q = "select * from usuarios where usu = '"+cifrado+"'"
+    q = "select * from usuarios where usu = '"+cifrado+"' and contraseña = '"+cifradoA+"'"
     cursor.execute(q)
     rs=cursor.fetchone()
     try:
@@ -163,6 +164,7 @@ def iniciarSesion(request):
     request.session['email']=email
     request.session['clas']=clas
     request.session['passw']=passw
+    request.session.modified = True
     print("session: id:"+str(request.session['id_usu']))
     miconexion.close()
     print(username, password,id_usu,"\n")
@@ -189,7 +191,7 @@ def crearCuentaN(request):
     cifradoA=str(cifrarmensaje(password,key_public))
     cifradoA=cifradoA[0:(len(cifradoA)-2)]
     print(username, password,email)
-    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
+    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
     cursor = miconexion.cursor()
     q = "INSERT INTO usuarios (usu,correo,contraseña,promedio) VALUES ('"+cifrado+"','"+cifradoE+"','"+cifradoA+"', '0')"
     cursor.execute(q)
@@ -237,19 +239,59 @@ def words(request):
     documento=plt.render(ctx)
     return HttpResponse(documento)
 def registrarPN(request,puntaje):
-    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
+    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
     cursor = miconexion.cursor()
     fecha=datetime.today().strftime('%Y-%m-%d %H:%M')
-    q = "INSERT INTO puntaje (puntaje,mododejuego,fecha,id_usu) VALUES ('"+puntaje+"','NORMAL','"+str(fecha)+"','"+str(request.session.get('id_usu','0'))+"')"
+    q = "SELECT * FROM usuarios where id_usu = '"+str(request.session.get('id_usu','0'))+"'"
+    cursor.execute(q)
+    rs=cursor.fetchone()
+    promedio=int(rs[5])
+    promedio=(promedio+int(puntaje))/2
+
+    q = "INSERT INTO puntaje (puntaje,mododejuego,fecha,id_usu) VALUES ('"+puntaje+"','Normal','"+str(fecha)+"','"+str(request.session.get('id_usu','0'))+"')"
+    cursor.execute(q)
+    miconexion.commit()
+    clasificacion="campeon"
+    if(promedio<90):
+        clasificacion="oro"
+    if(promedio<60):
+        clasificacion="plata"
+    if(promedio<30):
+        clasificacion="bronce"
+    
+    q = "UPDATE usuarios SET clasificacion = '"+clasificacion+"'  WHERE id_usu = '"+str(request.session.get('id_usu','0'))+"';"
+    cursor.execute(q)
+    miconexion.commit()
+    q = "UPDATE usuarios SET promedio = '"+str(promedio)+"'  WHERE id_usu = '"+str(request.session.get('id_usu','0'))+"';"
     cursor.execute(q)
     miconexion.commit()
     miconexion.close()
     return redirect("/jugar", permanent=True)
 def registrarPW(request,puntaje):
-    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
+    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
     cursor = miconexion.cursor()
     fecha=datetime.today().strftime('%Y-%m-%d %H:%M')
+    q = "SELECT * FROM usuarios where id_usu = '"+str(request.session.get('id_usu','0'))+"'"
+    cursor.execute(q)
+    rs=cursor.fetchone()
+    promedio=int(rs[5])
+    promedio=(promedio+int(puntaje))/2
+
     q = "INSERT INTO puntaje (puntaje,mododejuego,fecha,id_usu) VALUES ('"+puntaje+"','WORDS','"+str(fecha)+"','"+str(request.session.get('id_usu','0'))+"')"
+    cursor.execute(q)
+    miconexion.commit()
+    clasificacion="campeon"
+    if(promedio<90):
+        clasificacion="oro"
+    if(promedio<60):
+        clasificacion="plata"
+    if(promedio<30):
+        clasificacion="bronce"
+    
+    q = "UPDATE usuarios SET clasificacion = '"+clasificacion+"'  WHERE id_usu = '"+str(request.session.get('id_usu','0'))+"';"
+    cursor.execute(q)
+    miconexion.commit()
+    q = "UPDATE usuarios SET promedio = '"+str(promedio)+"'  WHERE id_usu = '"+str(request.session.get('id_usu','0'))+"';"
     cursor.execute(q)
     miconexion.commit()
     miconexion.close()
@@ -303,11 +345,55 @@ def modificarCuenta(request):
     return redirect("/perfil", permanent=True)
 def CerrarSesion(request):
     print("cerrar sesion")
-    del request.session['id_usu']
-    del request.session['name']
-    del request.session['email']
-    del request.session['clas']
-    del request.session['passw']
-    request.session.modified = True
-    return redirect("/perfil", permanent=True)
+    return redirect("/iniciarCuenta", permanent=True)
+def Historial(request):
+    miconexion = mysql.connector.connect(user="root",password="root",host="localhost",database="mekima")
+    cursor = miconexion.cursor()
+    idu=request.session.get('id_usu',"0")
+    q = "select * from puntaje where id_usu = '"+str(idu)+"'"
+    cursor.execute(q)
+    rs=cursor.fetchall()
+    dato1="No haz jugado"
+    dato2="No haz jugado"
+    dato3="No haz jugado"
+    dato4="No haz jugado"
+    modo1="No haz jugado"
+    modo2="No haz jugado"
+    modo3="No haz jugado"
+    modo4="No haz jugado"
+    fecha1="No haz jugado"
+    fecha2="No haz jugado"
+    fecha3="No haz jugado"
+    fecha4="No haz jugado"
+    try:
+        dato1=rs[0][1]
+        modo1=rs[0][2]
+        fecha1=rs[0][3]
+        try:
+            dato2=rs[1][1]
+            modo2=rs[1][2]
+            fecha2=rs[1][3]
+            try:
+                dato3=rs[2][1]
+                modo3=rs[2][2]
+                fecha3=rs[2][3]
+                try:
+                    dato4=rs[3][1]
+                    modo4=rs[3][2]
+                    fecha4=rs[3][4]
+                except:
+                    print("")
+            except:
+                print("")
+        except:
+            print("")
+    except:
+        print("")
+    miconexion.close()
+    doc_externo=open("plantilla\historial.html")
+    plt=Template(doc_externo.read())
+    doc_externo.close()
+    ctx=Context({"dato1":dato1,"dato2":dato2,"dato3":dato3,"dato4":dato4,"modo1":modo1,"modo2":modo2,"modo3":modo3,"modo4":modo4,"fecha1":fecha1,"fecha2":fecha2,"fecha3":fecha3,"fecha4":fecha4,})
+    documento=plt.render(ctx)
+    return HttpResponse(documento)
 
