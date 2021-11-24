@@ -12,13 +12,13 @@ form.addEventListener( 'submit', function( e ) {
 
     const nombre = document.querySelector( '#nombre' ).value;
     const correo = document.querySelector( '#correo' ).value;
-    const contraseña = document.querySelector( '#contraseña' ).value;
-    const contraseñaRep = document.querySelector( '#contraseñaRep' ).value;
+    const contraseña = document.querySelector( '#contrasena' ).value;
+    const contraseñaRep = document.querySelector( '#contrasenaRep' ).value;
 
     const nombreMsg = document.querySelector( '#nombreMsg' );
     const correoMsg = document.querySelector( '#correoMsg' );
-    const contraseñaMsg = document.querySelector( '#contraseñaMsg' );
-    const contraseñaRepMsg = document.querySelector( '#contraseñaRepMsg' );
+    const contraseñaMsg = document.querySelector( '#contrasenaMsg' );
+    const contraseñaRepMsg = document.querySelector( '#contrasenaRepMsg' );
 
     valNombreContraseñá( nombre, nombreMsg, e );
     valNombreContraseñá( contraseña, contraseñaMsg, e );

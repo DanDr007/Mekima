@@ -11,10 +11,10 @@ const form = document.querySelector( '#form' );
 form.addEventListener( 'submit', function( e ) {
 
     const nombre = document.querySelector( '#nombre' ).value;
-    const contraseña = document.querySelector( '#contraseña' ).value;
+    const contraseña = document.querySelector( '#contrasena' ).value;
 
     const nombreMsg = document.querySelector( '#nombreMsg' );
-    const contraseñaMsg = document.querySelector( '#contraseñaMsg' );
+    const contraseñaMsg = document.querySelector( '#contrasenaMsg' );
 
     valNombreContraseñá( nombre, nombreMsg, e );
     valNombreContraseñá( contraseña, contraseñaMsg, e );

@@ -36,4 +36,6 @@ urlpatterns = [
     path('modificarDatos/', modificarCuenta),
     path('cerrarSesion/', CerrarSesion),
     path('historial/', Historial),
+    path('normal-cam/',configurar ),
+    path('jugarNormal/',jugarNormal),
 ]

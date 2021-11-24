@@ -9,9 +9,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="{% static 'images/icono.png' %}" type="image/x-icon">
-    <title>Play</title>
+    <title>Play Normal</title>
     <!-- css -->
-    <link rel="stylesheet" href="{% static 'styles/global.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/globalConfiguracion.css' %}">
     <!-- font-awesome -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <!-- fonts -->
@@ -20,6 +20,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@200;400;600;800&display=swap" rel="stylesheet">
 
 </head>
+
 
 
 <body>
@@ -32,10 +33,10 @@
     <!-- menuContenedor -->
     <div class="menuContenedor">
         <ul class="menu">
-            <li><a href="/index">home</a></li>
-            <li><a href="/perfil">profile</a></li>
-            <li><a href="/jugar">play</a></li>
-            <li><a href="/cerrarSesion">sing out</a></li>
+            <li><a href="./index.html">home</a></li>
+            <li><a href="./perfil.html">profile</a></li>
+            <li><a href="./jugar.html">play</a></li>
+            <li><a href="./iniciarCuenta.html">sing out</a></li>
         </ul>
     </div>
 
@@ -45,7 +46,7 @@
         <!-- logo -->
         <div class="logo">
             <h1>
-                <span>play <br></span>
+                <span>normal<br></span>
                 <br>
                 hello world !
             </h1>
@@ -54,9 +55,9 @@
         <!-- menu-links -->
         <div class="menu-links">
             <ul>
-                <a href="/index"><li>home.</li></a>
-                <a href="/perfil"><li>profile.</li></a>
-                <a href="/jugar"><li>play.</li></a>
+                <a href="./index.html"><li>home.</li></a>
+                <a href="./perfil.html"><li>profile.</li></a>
+                <a><li id="state">play.</li></a>
             </ul>
         </div>
 
@@ -73,37 +74,32 @@
     </div>
 
 
-    <!-- img -->
-    <div class="img">
-        <img src="{% static 'images/jugar.png' %}" alt="jugar">
-    </div>
-
-
-    <!-- juegos -->
-    <div class="juegos">
-        <div class="contenedorJuegos">
-            <center>
-                <p style="font-size:1.7rem">Con que quieres jugar?</p><br>
-            </center>
-            <div class="juego modos">
-                <div class="boton">
-                    <a href="/words"><button>Con solo teclado</button></a>
-                </div>
-            </div>
-
-        </div>
-    </div>
-
     <!-- texto -->
     <div class="texto">
-        <div class="title" id="textoH">game mode:<br>WORDS</div>
+        <div class="title" id="textoH">posici&oacute;nate !</div>
+        
+        <!-- form -->
+        <form method="POST" name="formulario" id="formulario">
+            <div id='message' class="letras">Aqu&iacute; apareceran las letras que ya registraste</div>
+            <div id="estado" class="letras">Aqu&iacute; aparecera si se registro la tecla o no</div>
+            <a href=""></a>
+        </form>
+
+    </div>
+
+
+    <!-- video -->
+    <div class="camara imgBx">
+        <video id="theVideo" controls autoplay></video>
+        <canvas id="theCanvas" style="display:none;"></canvas>
+        <a href="/jugarNormal/">ir al juego</a>
     </div>
 
     <!-- ahoraBtn -->
     <div class="ahoraBtn">
-       <a id="ahoraBtn">You can play with music!</a>
+       <a href="https://www.profesionalreview.com/wp-content/uploads/2020/04/dedos-y-teclas-para-mecanografia.jpg" target="blank" id="ahoraBtn">C&oacute;mo posicionarme?</a>
     </div>
-
+  
 
     <!-- social -->
     <div class="social">
@@ -113,7 +109,6 @@
             <li><i class="fa fa-instagram"></i></li>
         </ul>
     </div>
-
 
     <div class="contenedor-elipses">
 
@@ -128,8 +123,10 @@
     <!-- script -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
     <!-- <script src="./javaScript/efectosGlobal.js"></script> -->
-    <script src="{% static 'javaScript/menu.js' %}"></script>
-    <script src="{% static 'javaScript/musica.js' %}"></script>
+    <!-- <script src="{% static 'javaScript/menu.js' %}"></script>
+    <script src="{% static 'javaScript/musica.js' %}"></script> -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="{% static 'javaScript/cargarCamara.js' %}"></script>
 
 
 </body>
