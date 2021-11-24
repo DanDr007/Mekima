@@ -26,7 +26,7 @@
     			seconds = 60;
     			timerDiv.innerHTML = "60";
     			button.disabled = false;
-				window.location.href = "/registrarpuntajeW/"+points*3;
+				window.location.href = "/registrarpuntajeW/"+points*(2.5);
     		}
  		}, 1000);
   	}

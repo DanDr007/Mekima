@@ -72,7 +72,7 @@ WSGI_APPLICATION = 'mekima.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-
+SESSION_SAVE_EVERY_REQUEST = True
 DATABASES ={
     'default':{
         'ENGINE': 'django.db.backends.sqlite3',
