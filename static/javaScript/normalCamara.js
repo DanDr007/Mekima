@@ -19,6 +19,18 @@ videoTag.setAttribute('height', videoHeight);
 canvasTag.setAttribute('width', videoWidth);
 canvasTag.setAttribute('height', videoHeight);
 
+function getCookie(c_name) {
+	if(document.cookie.length > 0) {
+		c_start = document.cookie.indexOf(c_name + "=");
+		if(c_start != -1) {
+			c_start = c_start + c_name.length + 1;
+			c_end = document.cookie.indexOf(";", c_start);
+			if(c_end == -1) c_end = document.cookie.length;
+			return unescape(document.cookie.substring(c_start,c_end));
+		}
+	}
+	return "";
+  }
 
 	function countdown() {
 		points = 0;
@@ -35,7 +47,7 @@ canvasTag.setAttribute('height', videoHeight);
 			   seconds = 60;
 			   timerDiv.innerHTML = "60";
 			   button.disabled = false;	
-			   window.location.href = "/registrarpuntajeNCam/"+points+10-errores;
+			   window.location.href = "/registrarpuntajeNCam/"+str(points-errores);
 		   }
 		}, 1000);
 	 }

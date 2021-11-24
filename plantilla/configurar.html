@@ -80,6 +80,7 @@
         
         <!-- form -->
         <form method="POST" name="formulario" id="formulario">
+            {%  csrf_token %}
             <div id='message' class="letras">Aqu&iacute; apareceran las letras que ya registraste</div>
             <div id="estado" class="letras">Aqu&iacute; aparecera si se registro la tecla o no</div>
             <a href=""></a>
