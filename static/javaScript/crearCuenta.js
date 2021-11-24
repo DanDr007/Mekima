@@ -1,4 +1,3 @@
-
 'use strict'
 
 
@@ -24,11 +23,12 @@ form.addEventListener( 'submit', function( e ) {
     valNombreContraseñá( nombre, nombreMsg, e );
     valNombreContraseñá( contraseña, contraseñaMsg, e );
     valCorreo( correo, correoMsg, e );
-    if ( contraseña !== contraseñaRep ) {
+    if ( contraseña != contraseñaRep ) {
         contraseñaRepMsg.innerHTML = 'Las contraseñas no coinciden';
         contraseñaRepMsg.style.display = 'inline-block';
     } else {
         contraseñaRepMsg.style.display = 'inline-block';
+        contraseñaRepMsg.innerHTML = '';
     }
 
 });

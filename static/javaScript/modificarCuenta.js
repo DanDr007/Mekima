@@ -1,4 +1,3 @@
-
 'use strict'
 
 
@@ -66,5 +65,4 @@ const valCorreo = ( campo, msg, e ) => {
     } else {
         msg.style.display = 'none';
     }
-
 }

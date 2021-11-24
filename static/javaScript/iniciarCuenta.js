@@ -1,10 +1,9 @@
-
 'use strict'
 
 
 // expresiones
-const globalExp =  /^[a-zA-Z0-9\_\-]{5,20}$/;
-const correoExp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+const globalExp =  /^[a-zA-Z0-9_-]{5,20}$/;
+const correoExp = /^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$/;
 
 
 // form
