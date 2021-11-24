@@ -47,7 +47,9 @@ function getCookie(c_name) {
 			   seconds = 60;
 			   timerDiv.innerHTML = "60";
 			   button.disabled = false;	
-			   window.location.href = "/registrarpuntajeNCam/"+str(points-errores);
+			   var resultado = points -errores+10
+			   console.log(resultado)
+			   window.location.href = "/registrarpuntajeNCam/"+resultado;
 		   }
 		}, 1000);
 	 }
