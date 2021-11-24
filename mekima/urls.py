@@ -38,4 +38,5 @@ urlpatterns = [
     path('historial/', Historial),
     path('normal-cam/',configurar ),
     path('jugarNormal/',jugarNormal),
+    path('registrarpuntajeNCam/<puntaje>',registrarPNC),
 ]

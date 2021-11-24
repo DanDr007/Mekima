@@ -741,3 +741,39 @@ def jugarNormal(request):
     ctx=Context({})
     documento=plt.render(ctx)
     return HttpResponse(documento)
+def registrarPNC(request,puntaje):
+    miconexion = mysql.connector.connect(user="b2b9d95a9c8f35",password="55f5f243",host="us-cdbr-east-04.cleardb.com",database="heroku_ebc478919d2c6e9")
+    cursor = miconexion.cursor()
+    fecha=datetime.today().strftime('%Y-%m-%d %H:%M')
+    link=""
+    try:
+        q = "SELECT * FROM usuarios where id_usu = '"+str(request.session.get('id_usu','0'))+"'"
+        cursor.execute(q)
+        rs=cursor.fetchone()
+        promedio=int(rs[5])
+        promedio=(promedio+int(puntaje))/2
+        q = "INSERT INTO puntaje (puntaje,mododejuego,fecha,id_usu) VALUES ('"+puntaje+"','NormalCam','"+str(fecha)+"','"+str(request.session.get('id_usu','0'))+"')"
+        cursor.execute(q)
+        miconexion.commit()
+        clasificacion="campeon"
+        if(promedio<90):
+            clasificacion="oro"
+        if(promedio<60):
+            clasificacion="plata"
+        if(promedio<30):
+            clasificacion="bronce"
+        q = "UPDATE usuarios SET clasificacion = '"+clasificacion+"'  WHERE id_usu = '"+str(request.session.get('id_usu','0'))+"';"
+        cursor.execute(q)
+        miconexion.commit()
+        q = "UPDATE usuarios SET promedio = '"+str(promedio)+"'  WHERE id_usu = '"+str(request.session.get('id_usu','0'))+"';"
+        cursor.execute(q)
+        miconexion.commit()
+        
+        request.session['clas']=str(clasificacion)
+        request.session.modified = True
+        link="/historial"
+    except:
+        print("Es invitado")
+        link="/jugar"
+    miconexion.close()
+    return redirect(link, permanent=True)

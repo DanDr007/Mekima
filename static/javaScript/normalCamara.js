@@ -35,6 +35,7 @@ canvasTag.setAttribute('height', videoHeight);
 			   seconds = 60;
 			   timerDiv.innerHTML = "60";
 			   button.disabled = false;	
+			   window.location.href = "/registrarpuntajeNCam/"+points+10-errores;
 		   }
 		}, 1000);
 	 }
